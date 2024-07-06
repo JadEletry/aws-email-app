@@ -1,0 +1,23 @@
+# Ignore Terraform files
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Ignore Python bytecode files
+__pycache__/
+*.py[cod]
+
+# Ignore environment and package files
+.env
+.venv/
+node_modules/
+
+# Ignore log files and temporary files
+*.log
+*.tmp
+
+# Ignore OS-specific files
+.DS_Store
+
+# Ignore Zip files
+*.zip
