@@ -16,7 +16,7 @@ This project demonstrates an AWS-based email application that allows users to su
 
 ## Architecture
 
-![Architecture Diagram](aws-email-app/diagram.png)
+![Architecture Diagram](diagram.png)
 
 ## Prerequisites
 
