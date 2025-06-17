@@ -92,7 +92,14 @@ resource "aws_lambda_permission" "allow_s3" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.email_lambda.function_name
   principal     = "s3.amazonaws.com"
+  source_arn    = aws_s3_bucket.email_csv_bucket.arn
+
+  depends_on = [
+    aws_lambda_function.email_lambda,
+    aws_s3_bucket.email_csv_bucket
+  ]
 }
+
 
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket = aws_s3_bucket.email_csv_bucket.id
@@ -103,7 +110,7 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     filter_suffix       = ".csv"
   }
 
-  depends_on = [aws_lambda_function.email_lambda]
+  depends_on = [aws_lambda_permission.allow_s3]
 }
 
 resource "aws_dynamodb_table" "emails" {
@@ -120,3 +127,8 @@ resource "aws_dynamodb_table" "emails" {
     Name = "Emails"
   }
 }
+
+output "bucket_name" {
+  value = aws_s3_bucket.email_csv_bucket.bucket
+}
+

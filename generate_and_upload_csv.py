@@ -2,6 +2,10 @@ import csv
 import boto3
 from datetime import datetime
 
+# Load bucket name from Terraform output file
+with open("bucket_name.txt", "r") as f:
+    bucket_name = f.read().strip()
+
 # Initialize DynamoDB resource
 dynamodb = boto3.resource('dynamodb', region_name='ca-central-1')
 table = dynamodb.Table('Emails')
@@ -25,7 +29,6 @@ def upload_to_s3(bucket_name, filename):
     s3_client.upload_file(filename, bucket_name, filename)
 
 if __name__ == "__main__":
-    bucket_name = "email-csv-bucket-b43780a8e9238a3c"  # Replace with your S3 bucket name
     filename = f"emails_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
 
     # Fetch emails from DynamoDB
@@ -42,4 +45,3 @@ if __name__ == "__main__":
     upload_to_s3(bucket_name, filename)
 
     print(f"CSV file {filename} generated and uploaded to S3 bucket {bucket_name}")
-
