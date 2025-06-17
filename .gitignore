@@ -21,3 +21,7 @@ node_modules/
 
 # Ignore Zip files
 *.zip
+
+# Ignore text files with sensitive information
+bucket_name.txt
+
